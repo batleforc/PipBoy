@@ -1,7 +1,9 @@
 # Container GUI
 
-A lot's of what you can found here come from:
+At the beginning i was working with the V1 of these image with the intent to rework it my own way... i gave up and choose to use the V3 with all i need.
 
-- https://github.com/accetto/ubuntu-vnc-xfce/
+https://hub.docker.com/r/accetto/ubuntu-vnc-xfce-nodejs-g3
 
-It gave me a lot's of idea of what i want to do and what i'm gonna do in order to make this tiny project better.
+```shell
+docker run -d -p 25901:5901 -e VNC_RESOLUTION=1920x1080 accetto/ubuntu-vnc-xfce-nodejs-g3:vnc-vscode-chromium --wait
+```
