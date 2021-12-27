@@ -1,0 +1,11 @@
+{{- $initial := initials .Values.user.name -}}
+{{- $namespace := printf "%s-%s%s" .Values.project.prefix $initial .Values.user.surname -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: role-user
+  namespace: {{ $namespace }}
+rules:
+  - apiGroups: [ "", "extensions","apps" ]
+    resources: [ "deployments","pods","configmaps", "secrets", "jobs", "DaemonSets", "ReplicaSets", "services", "ingresses","endpoints" ]
+    verbs: [ "*" ]

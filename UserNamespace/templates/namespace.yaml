@@ -1,0 +1,7 @@
+{{- $initial := initials .Values.user.name -}}
+{{- $namespace := printf "%s-%s%s" .Values.project.prefix $initial .Values.user.surname -}}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{$namespace}}
