@@ -13,5 +13,5 @@ metadata:
     app: {{printf "gui-config-%s%s" $initial .Values.user.surname}}
 data:
   {{- range $key,$val := .Values.user.gui.Env }}
-  {{$key}}: {{$val}}
+  {{$key}}: {{$val |quote }}
   {{- end }}
