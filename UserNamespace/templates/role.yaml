@@ -5,6 +5,9 @@ kind: Role
 metadata:
   name: role-user
   namespace: {{ $namespace }}
+  annotations:
+    "helm.sh/resource-policy": keep
+    "meta.helm.sh/release-namespace": {{$namespace}}
 rules:
   - apiGroups: [ "", "extensions","apps" ]
     resources: [ "deployments","pods","configmaps", "secrets", "jobs", "DaemonSets", "ReplicaSets", "services", "ingresses","endpoints" ]

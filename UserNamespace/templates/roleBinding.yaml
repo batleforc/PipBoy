@@ -5,6 +5,9 @@ kind: RoleBinding
 metadata:
   name: user
   namespace: {{ $namespace }}
+  annotations:
+    "helm.sh/resource-policy": keep
+    "meta.helm.sh/release-namespace": {{$namespace}}
 subjects:
   - kind: ServiceAccount
     name: {{printf "%s%s" $initial .Values.user.surname}}
