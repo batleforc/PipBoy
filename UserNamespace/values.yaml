@@ -11,11 +11,14 @@ user:
     storage: 5Gi
     Env:
       VNC_RESOLUTION: 1920x1080
-      VNC_PORT: 5901
+      VNC_PORT: "5901"
       VNC_PW: headless
     Port:
         - 3000 # Nodejs
         - 5901 # VNC
+    limit:
+      cpu: "1"
+      memory: "3Gi"
   limit:
     storage: 20Gi
     cpu: "2"
