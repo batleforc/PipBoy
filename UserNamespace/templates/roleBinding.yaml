@@ -13,5 +13,5 @@ subjects:
     name: {{printf "%s%s" $initial .Values.user.surname}}
 roleRef:
   kind: Role
-  name: role-user
+  name: {{printf "role-%s" $namespace}}
   apiGroup: rbac.authorization.k8s.io

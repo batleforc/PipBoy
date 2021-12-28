@@ -1,0 +1,18 @@
+{{- $initial := initials .Values.user.name -}}
+{{- $namespace := printf "%s-%s%s" .Values.project.prefix $initial .Values.user.surname -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{printf "gui-svc-%s%s" $initial .Values.user.surname}}
+  namespace: {{$namespace}}
+  labels:
+    app: {{printf "gui-svc-%s%s" $initial .Values.user.surname}}
+spec:
+  ports:
+    - name: tls
+      port: {{.Values.user.gui.Env.VNC_PORT}}
+      targetPort: {{.Values.user.gui.Env.VNC_PORT}}
+  selector:
+    app: {{printf "gui-%s%s" $initial .Values.user.surname}}
+  type: ClusterIP

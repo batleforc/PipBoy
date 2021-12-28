@@ -1,0 +1,38 @@
+{{- $initial := initials .Values.user.name -}}
+{{- $namespace := printf "%s-%s%s" .Values.project.prefix $initial .Values.user.surname -}}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{printf "gui-%s%s" $initial .Values.user.surname}}
+  namespace: {{ $namespace }}
+  labels:
+    app: {{printf "gui-%s%s" $initial .Values.user.surname}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{printf "gui-%s%s" $initial .Values.user.surname}}
+  template:
+    metadata:
+      labels:
+        app: {{printf "gui-%s%s" $initial .Values.user.surname}}
+    spec:
+      containers:
+        - name: Gui
+          image: {{ printf "%s/%s:%s" .Values.user.imageOwner .Values.user.image .Values.user.tag}}
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: {{printf "gui-config-%s%s" $initial .Values.user.surname}}
+          ports:
+            {{- range .Values.user.gui.Port }}
+            - containerPort: {{ . }}
+            {{- end }}
+          volumeMounts:
+            - mountPath: /home
+              name: gui-pvc
+      volumes:
+        - name: gui-pvc
+          persistentVolumeClaim:
+            claimName: {{printf "gui-pvc-%s%s" $initial .Values.user.surname}}

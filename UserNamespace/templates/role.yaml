@@ -3,7 +3,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: role-user
+  name: {{printf "role-%s" $namespace}}
   namespace: {{ $namespace }}
   annotations:
     "helm.sh/resource-policy": keep

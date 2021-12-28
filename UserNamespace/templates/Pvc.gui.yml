@@ -4,7 +4,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ $configName}}
+  name: {{printf "gui-pvc-%s%s" $initial .Values.user.surname}}
   namespace: {{$namespace}}
   annotations:
     "helm.sh/resource-policy": keep
