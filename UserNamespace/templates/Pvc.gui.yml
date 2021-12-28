@@ -1,0 +1,19 @@
+{{- $initial := initials .Values.user.name -}}
+{{- $namespace := printf "%s-%s%s" .Values.project.prefix $initial .Values.user.surname -}}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ $configName}}
+  namespace: {{$namespace}}
+  annotations:
+    "helm.sh/resource-policy": keep
+    "meta.helm.sh/release-namespace": {{$namespace}}
+  labels:
+    app: guipvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{.Values.user.gui.storage}}

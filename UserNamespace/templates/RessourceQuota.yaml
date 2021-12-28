@@ -1,0 +1,15 @@
+{{- $initial := initials .Values.user.name -}}
+{{- $namespace := printf "%s-%s%s" .Values.project.prefix $initial .Values.user.surname -}}
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: {{printf "%s%s" $initial .Values.user.surname}}
+  namespace: {{ $namespace }}
+  annotations:
+    "helm.sh/resource-policy": keep
+    "meta.helm.sh/release-namespace": {{$namespace}}
+spec:
+  hard:
+    limits.cpu: {{ .Values.user.limit.cpu}}
+    limits.memory: {{.Values.user.limit.memory}}
+    requests.storage: {{.Values.user.limit.storage}}

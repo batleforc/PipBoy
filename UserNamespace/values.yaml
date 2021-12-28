@@ -4,3 +4,11 @@ project:
 user:
   name: maxime
   surname: leriche
+  image: ubuntu-vnc-xfce-nodejs-g3
+  tag: vnc-vscode-chromium
+  gui:
+    storage: 5Gi
+  limit:
+    storage: 20Gi
+    cpu: "2"
+    memory: 5Gi
