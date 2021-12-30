@@ -1,7 +1,10 @@
+{{- $namespace := printf "%s-master-guac" .Values.project.prefix -}}
+---
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "guacamole.fullname" . }}-guacamole
+  namespace: {{$namespace}}
   labels:
 {{ include "guacamole.labels" . | indent 4 }}
 spec:

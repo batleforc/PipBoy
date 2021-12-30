@@ -1,7 +1,8 @@
 # Default values for guacamole.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-
+project:
+  prefix: mk
 replicaCount: 1
 
 guacamole:
