@@ -1,0 +1,33 @@
+{{- $namespace := printf "%s-master-guac" .Values.project.prefix -}}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "db-deploy-guac"
+  namespace: {{$namespace}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "db-deploy-guac"
+  template:
+    metadata:
+      labels:
+        app: "db-deploy-guac"
+    spec:
+      containers:
+        - name: "db-deploy-guac"
+          image: {{printf "%s:%s" .Values.db.image.repository .Values.db.image.tag}}
+          imagePullPolicy: {{ .Values.db.image.pullPolicy }}
+          envFrom:
+            - secretRef:
+                name: "db-secret-guac"
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: db-pvc-guac
+      volumes:
+        - name: db-pvc-guac
+          persistentVolumeClaim:
+            claimName: db-pvc-guac

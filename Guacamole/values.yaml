@@ -25,6 +25,12 @@ dbcreation:
     tag: 13.5.0-debian-10-r9
     pullPolicy: IfNotPresent
 
+db:
+  image:
+    repository: postgres
+    tag: "13.5"
+    pullPolicy: IfNotPresent
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -51,7 +57,7 @@ securityContext:
 
 service:
   type: ClusterIP
-  port: 80
+  port: 8080
 
 ingress:
   enabled: true

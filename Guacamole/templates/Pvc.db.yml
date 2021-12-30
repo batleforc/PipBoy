@@ -1,0 +1,18 @@
+{{- $namespace := printf "%s-master-guac" .Values.project.prefix -}}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: "db-pvc-guac"
+  namespace: {{$namespace}}
+  annotations:
+    "helm.sh/resource-policy": keep
+    "meta.helm.sh/release-namespace": {{$namespace}}
+  labels:
+    app: db-guac
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
