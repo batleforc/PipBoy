@@ -11,7 +11,13 @@ guacamole:
     tag: "1.3.0"
     pullPolicy: IfNotPresent
   # Key-value settings directly passed as environment variables
-  settings: {}
+  settings:
+    OPENID_AUTHORIZATION_ENDPOINT: "https://auth.weebo.fr/auth/realms/MasterKluster/protocol/openid-connect/auth"
+    OPENID_JWKS_ENDPOINT: "https://auth.weebo.fr/auth/realms/MasterKluster/protocol/openid-connect/certs"
+    OPENID_ISSUER: "https://auth.weebo.fr/auth/realms/MasterKluster"
+    OPENID_CLIENT_ID: "Guacamole"
+    OPENID_REDIRECT_URI: "https://guac.weebo.fr/"
+    OPENID_SCOPE: "offline email profile openid"
 
 guacd:
   image:
