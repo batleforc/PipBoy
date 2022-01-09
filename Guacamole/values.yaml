@@ -12,12 +12,14 @@ guacamole:
     pullPolicy: IfNotPresent
   # Key-value settings directly passed as environment variables
   settings:
-    OPENID_AUTHORIZATION_ENDPOINT: "https://auth.weebo.fr/auth/realms/MasterKluster/protocol/openid-connect/auth"
+    #OPENID_AUTHORIZATION_ENDPOINT: "https://auth.weebo.fr/auth/realms/MasterKluster/protocol/openid-connect/auth"
     OPENID_JWKS_ENDPOINT: "https://auth.weebo.fr/auth/realms/MasterKluster/protocol/openid-connect/certs"
     OPENID_ISSUER: "https://auth.weebo.fr/auth/realms/MasterKluster"
     OPENID_CLIENT_ID: "Guacamole"
     OPENID_REDIRECT_URI: "https://guac.weebo.fr/"
-    OPENID_SCOPE: "offline email profile openid"
+    OPENID_SCOPE: "openid email profile"
+    OPENID_USERNAME_CLAIM_TYPE: name
+    EXTENSION_PRIORITY: "*, openid"
 
 guacd:
   image:
