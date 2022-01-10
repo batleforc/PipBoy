@@ -17,7 +17,10 @@ func main() {
 	}))
 
 	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello World")
+		type Retour struct {
+			Truc string `json:"name"`
+		}
+		return c.JSON(http.StatusOK, Retour{Truc: "hello"})
 	})
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", helper.GetStringEnv("PORT", "3001"))))
 }
