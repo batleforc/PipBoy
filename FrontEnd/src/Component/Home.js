@@ -10,18 +10,9 @@ const Home = () => {
           return (
             <div>
               {props.oidcUser ? (
-                <ul>
-                  <li>{props.oidcUser.profile.preferred_username}</li>
-                  <li>
-                    <Link to="/dashboard">Dashboard</Link>
-                  </li>
-                  <li>
-                    <Link to="/admin">Admin</Link>
-                  </li>
-                  <button onClick={props.logout}>logout</button>
-                </ul>
+                <h1>Welcome home {props.oidcUser.profile.name}</h1>
               ) : (
-                <button onClick={props.login}>login</button>
+                <h1>Please login</h1>
               )}
             </div>
           );
