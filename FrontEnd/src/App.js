@@ -13,18 +13,20 @@ function App() {
         loggerLevel={oidcLog.DEBUG}
       >
         <nav style={{ display: "flex" }}>
-          <Link style={{ margin: 1 }} to="/">
-            HOME
-          </Link>
-          <Link style={{ margin: 1 }} to="/1">
-            1
-          </Link>
-          <Link style={{ margin: 1 }} to="/2">
-            2
-          </Link>
-          <Link style={{ margin: 1 }} to="/3">
-            3
-          </Link>
+          <div>
+            <Link style={{ margin: 1 }} to="/">
+              HOME
+            </Link>
+            <Link style={{ margin: 1 }} to="/1">
+              1
+            </Link>
+            <Link style={{ margin: 1 }} to="/2">
+              2
+            </Link>
+            <Link style={{ margin: 1 }} to="/3">
+              3
+            </Link>
+          </div>
           <User />
         </nav>
 

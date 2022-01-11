@@ -1,6 +1,5 @@
 import React from "react";
 import { AuthenticationContext } from "@axa-fr/react-oidc-context";
-import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <div>

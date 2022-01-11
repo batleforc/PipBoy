@@ -1,5 +1,5 @@
 const configuration = {
-  client_id: "PipBoy",
+  client_id: "pipboy",
   redirect_uri: "http://localhost:3000/authentication/callback",
   response_type: "id_token token",
   post_logout_redirect_uri: "http://localhost:3000/",
