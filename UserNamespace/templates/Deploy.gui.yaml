@@ -18,6 +18,7 @@ spec:
       labels:
         app: {{printf "gui-%s%s" $initial .Values.user.surname}}
     spec:
+      serviceAccountName: {{printf "%s%s" $initial .Values.user.surname}}
       containers:
         - name: gui
           image: {{ printf "%s/%s:%s" .Values.user.imageOwner .Values.user.image .Values.user.tag}}

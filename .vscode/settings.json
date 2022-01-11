@@ -1,3 +1,9 @@
 {
-  "cSpell.words": ["STARTUPDIR", "WORKDIR"]
+  "cSpell.words": [
+    "CLIENTID",
+    "gocloak",
+    "OIDC",
+    "STARTUPDIR",
+    "WORKDIR"
+  ]
 }
