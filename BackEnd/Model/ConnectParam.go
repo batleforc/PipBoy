@@ -33,10 +33,10 @@ func (v *KeyClient) GetRetrospectToken(token string) (gocloak.RetrospecTokenResu
 	return *rptToken, err
 }
 
-func (v *KeyClient) GetUserFromToken(token string) ([]*gocloak.User, error) {
+func (v *KeyClient) GetUserInfoFromToken(token string) (*gocloak.UserInfo, error) {
 	if v.client == nil {
 		v.Init()
 	}
 	ctx := context.Background()
-	return v.client.GetUsers(ctx, token, v.clientId, gocloak.GetUsersParams{})
+	return v.client.GetUserInfo(ctx, token, v.clientRealm)
 }

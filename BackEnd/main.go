@@ -30,12 +30,18 @@ func main() {
 			fmt.Printf("An error has been encountered, %s", err.Error())
 		}
 		fmt.Print(rptToken.String())
-		fmt.Print(rptToken)
 		type Retour struct {
-			Truc bool `json:"name"`
-			rpt  gocloak.RetrospecTokenResult
+			Truc      bool `json:"name"`
+			Rpt       gocloak.RetrospecTokenResult
+			Firstname string           `json:"FirstName"`
+			Lastname  string           `json:"LastName"`
+			Username  string           `json:"UserName"`
+			UserInfo  gocloak.UserInfo `json:"UserInfo"`
 		}
-		return c.JSON(http.StatusOK, Retour{Truc: !*rptToken.Active, rpt: rptToken})
+		user, _ := keyClient.GetUserInfoFromToken(externalToken)
+		fmt.Print(user)
+		fmt.Print(*user.PreferredUsername)
+		return c.JSON(http.StatusOK, Retour{Truc: !*rptToken.Active, Rpt: rptToken, Firstname: *user.GivenName, Lastname: *user.FamilyName, Username: *user.PreferredUsername, UserInfo: *user})
 	})
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", helper.GetStringEnv("PORT", "3001"))))
 }

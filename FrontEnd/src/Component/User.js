@@ -5,6 +5,7 @@ const User = () => {
   return (
     <AuthenticationContext.Consumer>
       {(props) => {
+        console.log(props);
         if (props.oidcUser)
           axios.get("http://localhost:3001", {
             headers: { Authorization: `Bearer ${props.oidcUser.access_token}` },

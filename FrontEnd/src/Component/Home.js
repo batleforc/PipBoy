@@ -5,10 +5,9 @@ const Home = () => {
     <div>
       <AuthenticationContext.Consumer>
         {(props) => {
-          console.log(props);
           return (
             <div>
-              {props.oidcUser ? (
+              {props.oidcUser && !props.isLoading ? (
                 <h1>Welcome home {props.oidcUser.profile.name}</h1>
               ) : (
                 <h1>Please login</h1>
