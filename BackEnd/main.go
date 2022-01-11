@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	helper "pipboy/Helper"
+	model "pipboy/Model"
 
 	"github.com/Nerzal/gocloak/v10"
 	"github.com/labstack/echo/v4"
@@ -23,11 +24,13 @@ func main() {
 
 	e.GET("/", func(c echo.Context) error {
 		externalToken := helper.ParseTokenHeader(c.Request().Header.Get("Authorization"))
-		rptToken, err := helper.GetRetrospectToken(externalToken)
+		keyClient := model.KeyClient{}
+		rptToken, err := keyClient.GetRetrospectToken(externalToken)
 		if err != nil {
 			fmt.Printf("An error has been encountered, %s", err.Error())
 		}
 		fmt.Print(rptToken.String())
+		fmt.Print(rptToken)
 		type Retour struct {
 			Truc bool `json:"name"`
 			rpt  gocloak.RetrospecTokenResult
