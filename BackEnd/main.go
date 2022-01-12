@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	helper "pipboy/Helper"
@@ -8,6 +9,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 func main() {
@@ -28,10 +30,24 @@ func main() {
 			fmt.Printf("An error has been encountered, %s", err.Error())
 			return err
 		}
-		type Retour struct {
-			CanStillWork bool
+		kube := model.K8sHandler{}
+		clientSet, err := kube.InitOutCluster().GetClientSet()
+		if err != nil {
+			fmt.Printf("An error has been encountered, %s", err.Error())
+			return err
 		}
-		return c.JSON(http.StatusOK, Retour{CanStillWork: *rptToken.Active})
+		userInfo, _ := keyClient.GetUserInfoFromToken(externalToken)
+		namespace, err := clientSet.CoreV1().Namespaces().Get(context.TODO(), helper.GetNamespaceName(*userInfo), metav1.GetOptions{})
+		if err != nil {
+			fmt.Printf("An error has been encountered, %s", err.Error())
+			return err
+		}
+		type Retour struct {
+			CanStillWork   bool
+			NamespaceExist bool
+			NamespaceName  string
+		}
+		return c.JSON(http.StatusOK, Retour{CanStillWork: *rptToken.Active, NamespaceExist: namespace != nil, NamespaceName: namespace.GetName()})
 	})
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", helper.GetStringEnv("PORT", "3001"))))
 }
