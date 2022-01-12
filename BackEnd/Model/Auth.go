@@ -7,7 +7,7 @@ import (
 	"github.com/Nerzal/gocloak/v10"
 )
 
-type KeyClient struct {
+type Auth struct {
 	clientId     string
 	clientSecret string
 	clientRealm  string
@@ -15,7 +15,7 @@ type KeyClient struct {
 	client       gocloak.GoCloak
 }
 
-func (v *KeyClient) Init() KeyClient {
+func (v *Auth) Init() Auth {
 	v.clientId = helper.GetStringEnv("OIDC_CLIENTID", "pipboy")
 	v.clientSecret = helper.GetStringEnv("OIDC_CLIENTSECRET", "5a161e19-2d93-4860-9927-06097a824814")
 	v.clientRealm = helper.GetStringEnv("OIDC_REALM", "MasterKluster")
@@ -24,7 +24,7 @@ func (v *KeyClient) Init() KeyClient {
 	return *v
 }
 
-func (v *KeyClient) GetRetrospectToken(token string) (gocloak.RetrospecTokenResult, error) {
+func (v *Auth) GetRetrospectToken(token string) (gocloak.RetrospecTokenResult, error) {
 	if v.client == nil {
 		v.Init()
 	}
@@ -33,10 +33,18 @@ func (v *KeyClient) GetRetrospectToken(token string) (gocloak.RetrospecTokenResu
 	return *rptToken, err
 }
 
-func (v *KeyClient) GetUserInfoFromToken(token string) (*gocloak.UserInfo, error) {
+func (v *Auth) GetUserInfoFromToken(token string) (*gocloak.UserInfo, error) {
 	if v.client == nil {
 		v.Init()
 	}
 	ctx := context.Background()
 	return v.client.GetUserInfo(ctx, token, v.clientRealm)
+}
+
+func (v *Auth) IsTokenValid(token string) bool {
+	rptToken, err := v.GetRetrospectToken(token)
+	if err != nil {
+		return false
+	}
+	return *rptToken.Active
 }

@@ -24,7 +24,7 @@ func main() {
 
 	e.GET("/", func(c echo.Context) error {
 		externalToken := helper.ParseTokenHeader(c.Request().Header.Get("Authorization"))
-		keyClient := model.KeyClient{}
+		keyClient := model.Auth{}
 		rptToken, err := keyClient.GetRetrospectToken(externalToken)
 		if err != nil {
 			fmt.Printf("An error has been encountered, %s", err.Error())
