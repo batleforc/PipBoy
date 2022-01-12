@@ -3,6 +3,7 @@ package helper
 import (
 	"os"
 	"strconv"
+	"strings"
 )
 
 func GetStringEnv(label string, defaultValue string) string {
@@ -18,4 +19,8 @@ func GetIntEnv(label string, defaultValue string) int {
 		return i
 	}
 	return -1
+}
+
+func GetStringArrayEnv(label string, separator string, defaultValue string) []string {
+	return strings.Split(GetStringEnv(label, defaultValue), separator)
 }

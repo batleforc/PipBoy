@@ -6,7 +6,6 @@ import (
 	helper "pipboy/Helper"
 	model "pipboy/Model"
 
-	"github.com/Nerzal/gocloak/v10"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -18,7 +17,7 @@ func main() {
 		Format: "[${remote_ip} : ${time_rfc3339_nano}] ${status} : ${method} => ${uri}\n",
 	}))
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"http://localhost:3001", "http://localhost:3000"},
+		AllowOrigins: helper.GetStringArrayEnv("ALLOW_ORIGIN", ",", "localhost:3000,localhost:3001"),
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAuthorization, echo.HeaderAccept},
 	}))
 
@@ -28,20 +27,12 @@ func main() {
 		rptToken, err := keyClient.GetRetrospectToken(externalToken)
 		if err != nil {
 			fmt.Printf("An error has been encountered, %s", err.Error())
+			return err
 		}
-		fmt.Print(rptToken.String())
 		type Retour struct {
-			Truc      bool `json:"name"`
-			Rpt       gocloak.RetrospecTokenResult
-			Firstname string           `json:"FirstName"`
-			Lastname  string           `json:"LastName"`
-			Username  string           `json:"UserName"`
-			UserInfo  gocloak.UserInfo `json:"UserInfo"`
+			CanStillWork bool
 		}
-		user, _ := keyClient.GetUserInfoFromToken(externalToken)
-		fmt.Print(user)
-		fmt.Print(*user.PreferredUsername)
-		return c.JSON(http.StatusOK, Retour{Truc: !*rptToken.Active, Rpt: rptToken, Firstname: *user.GivenName, Lastname: *user.FamilyName, Username: *user.PreferredUsername, UserInfo: *user})
+		return c.JSON(http.StatusOK, Retour{CanStillWork: *rptToken.Active})
 	})
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", helper.GetStringEnv("PORT", "3001"))))
 }
