@@ -7,7 +7,7 @@ const Profile = () => {
   return (
     <AuthenticationContext.Consumer>
       {(props) => {
-        if (props.oidcUser && data == undefined)
+        if (props.oidcUser && data === undefined)
           axios
             .get("http://localhost:3001", {
               headers: {
@@ -16,10 +16,9 @@ const Profile = () => {
             })
             .then((data) => data.data)
             .then((data) => setData(data));
-        console.log(data, props.oidcUser);
         return (
           <>
-            {props.oidcUser && data != undefined ? (
+            {props.oidcUser && data !== undefined ? (
               <div>
                 <p>Namespace Exist : {data.NamespaceExist.toString()}</p>
                 <p>Namespace : {data.NamespaceName}</p>
