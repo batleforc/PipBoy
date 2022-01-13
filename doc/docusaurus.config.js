@@ -9,7 +9,7 @@ const config = {
   title: "PipBoy",
   tagline: "Projet d'environnement de travail dans Kubernetes",
   url: "https://batleforc.github.io",
-  baseUrl: "/",
+  baseUrl: "/PipBoy",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
