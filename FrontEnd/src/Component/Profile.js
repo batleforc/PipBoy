@@ -24,6 +24,9 @@ const Profile = () => {
                 <p>Namespace : {data.NamespaceName}</p>
                 <p>User : {props.oidcUser.profile.name}</p>
                 <p>Username : {props.oidcUser.profile.preferred_username}</p>
+                <a rel="noreferrer" target="_blank" href={data.AccountPanel}>
+                  Account panel
+                </a>
               </div>
             ) : (
               <p>

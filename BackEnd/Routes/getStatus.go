@@ -16,6 +16,7 @@ type Retour struct {
 	CanStillWork   bool
 	NamespaceExist bool
 	NamespaceName  string
+	AccountPanel   string
 }
 
 func GetStatus(c echo.Context) error {
@@ -38,5 +39,5 @@ func GetStatus(c echo.Context) error {
 		fmt.Printf("An error has been encountered, %s", err.Error())
 		return err
 	}
-	return c.JSON(http.StatusOK, Retour{CanStillWork: *rptToken.Active, NamespaceExist: namespace != nil, NamespaceName: namespace.GetName()})
+	return c.JSON(http.StatusOK, Retour{CanStillWork: *rptToken.Active, NamespaceExist: namespace != nil, NamespaceName: namespace.GetName(), AccountPanel: fmt.Sprintf("%s/auth/realms/%s/account", keyClient.HostName, keyClient.ClientRealm)})
 }

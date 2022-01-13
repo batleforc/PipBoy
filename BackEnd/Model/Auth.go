@@ -8,19 +8,19 @@ import (
 )
 
 type Auth struct {
-	clientId     string
+	ClientId     string
 	clientSecret string
-	clientRealm  string
-	hostName     string
+	ClientRealm  string
+	HostName     string
 	client       gocloak.GoCloak
 }
 
 func (v *Auth) Init() Auth {
-	v.clientId = helper.GetStringEnv("OIDC_CLIENTID", "pipboy")
+	v.ClientId = helper.GetStringEnv("OIDC_CLIENTID", "pipboy")
 	v.clientSecret = helper.GetStringEnv("OIDC_CLIENTSECRET", "5a161e19-2d93-4860-9927-06097a824814")
-	v.clientRealm = helper.GetStringEnv("OIDC_REALM", "MasterKluster")
-	v.hostName = helper.GetStringEnv("OIDC_HOSTNAME", "https://auth.weebo.fr")
-	v.client = gocloak.NewClient(v.hostName)
+	v.ClientRealm = helper.GetStringEnv("OIDC_REALM", "MasterKluster")
+	v.HostName = helper.GetStringEnv("OIDC_HOSTNAME", "https://auth.weebo.fr")
+	v.client = gocloak.NewClient(v.HostName)
 	return *v
 }
 
@@ -29,7 +29,7 @@ func (v *Auth) GetRetrospectToken(token string) (gocloak.RetrospecTokenResult, e
 		v.Init()
 	}
 	ctx := context.Background()
-	rptToken, err := v.client.RetrospectToken(ctx, token, v.clientId, v.clientSecret, v.clientRealm)
+	rptToken, err := v.client.RetrospectToken(ctx, token, v.ClientId, v.clientSecret, v.ClientRealm)
 	return *rptToken, err
 }
 
@@ -38,7 +38,7 @@ func (v *Auth) GetUserInfoFromToken(token string) (*gocloak.UserInfo, error) {
 		v.Init()
 	}
 	ctx := context.Background()
-	return v.client.GetUserInfo(ctx, token, v.clientRealm)
+	return v.client.GetUserInfo(ctx, token, v.ClientRealm)
 }
 
 func (v *Auth) IsTokenValid(token string) bool {
