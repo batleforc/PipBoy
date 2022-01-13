@@ -8,7 +8,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
   title: "PipBoy",
   tagline: "Projet d'environnement de travail dans Kubernetes",
-  url: "https://your-docusaurus-test-site.com",
+  url: "https://batleforc.github.io",
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
