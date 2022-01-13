@@ -43,7 +43,7 @@ jobs:
           USE_SSH: true
           GIT_USER: git
         run: |
-          if [ git diff --quiet HEAD^ HEAD -- doc ]
+          if [ git diff --quiet HEAD^ HEAD -- doc ]; then
             git config --global user.email "actions@github.com"
             git config --global user.name "gh-actions"
             cd doc
