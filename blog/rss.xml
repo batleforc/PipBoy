@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>PipBoy Blog</title>
+        <link>https://batleforc.github.io/PipBoy/blog</link>
+        <description>PipBoy Blog</description>
+        <lastBuildDate>Mon, 13 Jan 2020 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <item>
+            <title><![CDATA[First Blog Post]]></title>
+            <link>https://batleforc.github.io/PipBoy/blog/first-blog-post</link>
+            <guid>first-blog-post</guid>
+            <pubDate>Mon, 13 Jan 2020 00:00:00 GMT</pubDate>
+            <description><![CDATA[Hello, Aloha, Bonjour,]]></description>
+            <content:encoded><![CDATA[<p>Hello, Aloha, Bonjour,</p><p>Et surtout bienvenue dans ce premier &quot;Post&quot; du projet PipBoy.</p><p>Comme toujours avec moi le nom n&#x27;est pas contractuelle et est voué a changé.</p><p>En vous souhaitant une bonne découverte de ce projet farfelue.</p>]]></content:encoded>
+        </item>
+    </channel>
+</rss>

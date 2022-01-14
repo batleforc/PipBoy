@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://batleforc.github.io/PipBoy/blog</id>
+    <title>PipBoy Blog</title>
+    <updated>2020-01-13T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://batleforc.github.io/PipBoy/blog"/>
+    <subtitle>PipBoy Blog</subtitle>
+    <icon>https://batleforc.github.io/PipBoy/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[First Blog Post]]></title>
+        <id>first-blog-post</id>
+        <link href="https://batleforc.github.io/PipBoy/blog/first-blog-post"/>
+        <updated>2020-01-13T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Hello, Aloha, Bonjour,]]></summary>
+        <content type="html"><![CDATA[<p>Hello, Aloha, Bonjour,</p><p>Et surtout bienvenue dans ce premier &quot;Post&quot; du projet PipBoy.</p><p>Comme toujours avec moi le nom n&#x27;est pas contractuelle et est voué a changé.</p><p>En vous souhaitant une bonne découverte de ce projet farfelue.</p>]]></content>
+        <author>
+            <name>Maxime Leriche</name>
+            <uri>https://github.com/batleforc</uri>
+        </author>
+    </entry>
+</feed>
