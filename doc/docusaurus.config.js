@@ -3,7 +3,7 @@
 
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
-
+const simplePlantUml = require("@akebifiky/remark-simple-plantuml");
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "PipBoy",
@@ -24,9 +24,10 @@ const config = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          editUrl: "https://github.com/batleforc/PipBoy/tree/master/doc/docs/",
+          editUrl: "https://github.com/batleforc/PipBoy/tree/master/doc/",
           remarkPlugins: [
             [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true }],
+            simplePlantUml,
           ],
         },
         pages: {
@@ -35,7 +36,11 @@ const config = {
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl: "https://github.com/batleforc/PipBoy/tree/master/doc/blog",
+          editUrl: "https://github.com/batleforc/PipBoy/tree/master/doc/",
+          remarkPlugins: [
+            [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true }],
+            simplePlantUml,
+          ],
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -112,6 +117,9 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+      },
+      colorMode: {
+        defaultMode: "dark",
       },
     }),
 };

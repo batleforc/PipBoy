@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@akebifiky/remark-simple-plantuml@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@akebifiky/remark-simple-plantuml/-/remark-simple-plantuml-1.0.2.tgz#c353e4be4e5338b0165f1d6060da4960c325bad5"
+  integrity sha512-y5rWgQvU+DMpLKx1KlXCsgUeqVooqQm1S3hePLF9iecZy6YhKRybznFdvAvoAoiV2GoGhObQDHnneAl93llIcg==
+  dependencies:
+    plantuml-encoder "^1.4.0"
+    unist-util-visit "^2.0.2"
+
 "@algolia/autocomplete-core@1.5.0":
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@algolia/autocomplete-core/-/autocomplete-core-1.5.0.tgz#6c91c9de7748e9c103846828a58dfe92bd4d6689"
@@ -5503,6 +5511,11 @@ pkg-up@^3.1.0:
   integrity sha512-nDywThFk1i4BQK4twPQ6TA4RT8bDY96yeuCVBWL3ePARCiEKDRSrNGbFIgUJpLp+XeIR65v8ra7WuJOFUBtkMA==
   dependencies:
     find-up "^3.0.0"
+
+plantuml-encoder@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/plantuml-encoder/-/plantuml-encoder-1.4.0.tgz#7899302cf785de956bf1a167e15420feee5975f7"
+  integrity sha512-sxMwpDw/ySY1WB2CE3+IdMuEcWibJ72DDOsXLkSmEaSzwEUaYBT6DWgOfBiHGCux4q433X6+OEFWjlVqp7gL6g==
 
 portfinder@^1.0.28:
   version "1.0.28"
