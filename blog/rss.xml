@@ -8,12 +8,12 @@
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <item>
-            <title><![CDATA[Concept]]></title>
+            <title><![CDATA[PipBoy ? Kezako ?]]></title>
             <link>https://batleforc.github.io/PipBoy/blog/concept</link>
             <guid>concept</guid>
             <pubDate>Tue, 14 Jan 2020 00:00:00 GMT</pubDate>
-            <description><![CDATA[PipBoy ? Kezako ?]]></description>
-            <content:encoded><![CDATA[<p>PipBoy ? Kezako ?</p><p>Le projet PipBoy a pour objectif de mettre en place un environnement de travail sous kubernetes simplifier.</p><p>Vous êtes encore plus perdue ? Ce n&#x27;est pas grave !</p><p>Si vous avez un peu de connaissance en infrastructure cella peux être comparé a un serveur RDP ou chaque utilisateur aura un l&#x27;équivalent d&#x27;un docker personnelle.</p><p>Pour les autre ?</p><p>Afin de comprendre la suite des explication il est nécessaire de connaître:</p><ul><li><a href="https://www.youtube.com/watch?v=caXHwYC3tq8">un minimum docker</a> ou <a href="https://www.youtube.com/watch?v=3c-iBn73dDE">beaucoup</a>.</li><li>Kubernetes et plus précisément les pods et namespace (le reste sera nécessaire dans un autre article)</li><li><a href="https://fr.wikipedia.org/wiki/Virtual_Network_Computing">VNC</a></li></ul><p>A noté:</p><ul><li>Environnement == Namespace</li><li>GuiContainer : Container docker avec une interface graphique</li></ul><pre><code class="language-plantuml" metastring="V1">node kubernetes{
+            <description><![CDATA[Le projet PipBoy a pour objectif de mettre en place un environnement de travail sous kubernetes simplifier.]]></description>
+            <content:encoded><![CDATA[<p>Le projet PipBoy a pour objectif de mettre en place un environnement de travail sous kubernetes simplifier.</p><p>Vous êtes encore plus perdue ? Ce n&#x27;est pas grave !</p><h2>Pour les connaisseur</h2><p>Si vous avez un peu de connaissance en infrastructure cella peux être comparé a un serveur RDP ou chaque utilisateur aura un l&#x27;équivalent d&#x27;un docker personnelle. Si vous souhaité en savoir plus je vous invite a lire la suite de l&#x27;article.</p><h2>Pour les autre ? et les curieux ?</h2><h3>Prérequis</h3><p>Afin de comprendre la suite des explication il est nécessaire de connaître:</p><ul><li><a href="https://www.youtube.com/watch?v=caXHwYC3tq8">un minimum docker</a> ou <a href="https://www.youtube.com/watch?v=3c-iBn73dDE">beaucoup</a>.</li><li>Kubernetes et plus précisément les pods et namespace (le reste sera nécessaire dans un autre article)</li><li><a href="https://fr.wikipedia.org/wiki/Virtual_Network_Computing">VNC</a></li></ul><p>A noté:</p><ul><li>Environnement == Namespace</li><li>GuiContainer : Container docker avec une interface graphique</li></ul><h3>Et si on entrait dans le vif du sujet</h3><pre><code class="language-plantuml" metastring="V1">node kubernetes{
   package &quot;PipBoy&quot;{
     node &quot;Guacamole BackEnd&quot; as guacd
     node &quot;PipBoy BackEnd&quot; as pipback
@@ -26,16 +26,16 @@
   }
 }
 
-node user
+actor user
 
-user --&gt; pipfront : Accéde aux information de son namespace
-pipfront --&gt; kc : Authentifie l&#x27;uttilisateur
+user --&gt; pipfront : Accede aux information de son namespace
+pipfront --&gt; kc : Authentifie l&#x27;utilisateur
 pipfront --&gt; pipback : Accéde a kubernetes
-pipfront -[#black]-&gt; pipback : Récupére les information de\nconnection aux container
-pipback -[#black]-&gt; guacd : Demande une connection aux gui
-guacd -[#black]-&gt; gui : Creer une connection entre\nGuiContainer et l&#x27;user
-guacd -[#black]-&gt; other: Creer une connection\nd&#x27;un autre type si besoin
-</code></pre><p>La connection préconiser vers Gui est une connection de type VNC, le container étant conçu afin de supporter une interface graphique.</p><p>Mais le système Guacamole permet bien plus que du VNC telle que:</p><ul><li>RDP : Remote Desktop Protocol =&gt; Supporté principalement par Windows</li><li>SSH : Secure Shell =&gt; Protocol supporté par pratiquement tout</li><li>Kubernetes =&gt; Accès directe aux container sans nécessité de SSH</li></ul><p>Hors Guacamole viens de base avec son propre Client mais celui ci ne permet pas une gestion automatisé des clients comme souhaité.</p><p>Afin de résoudre ce problème la librairie js guacamole sera implémenter dans PipBoy Front.</p>]]></content:encoded>
+pipfront -[#black]-&gt; pipback : Récupéré les information de\nconnection aux container
+pipback -[#black]-&gt; guacd : Demande une connection aux container Gui
+guacd -[#black]-&gt; gui : Créer une connection entre\nGuiContainer et l&#x27;user
+guacd -[#black]-&gt; other: Créer une connection\nd&#x27;un autre type si besoin
+</code></pre><h4>Cas cible</h4><p>Dans notre cas ou le cas de base souhaité notre utilisateur souhaite avec un PC possédant peu de performance voir son téléphone accéder a un pc pourvu d&#x27;un IDE (Vscode) ainsi que de docker ou un équivalent.</p><h4>Authentification</h4><p>A cette fin il devra ce connecter a son futur meilleur amis PipBoy!</p><p>Le processus d&#x27;authentification n&#x27;est pas gérer par PipBoy mais par un Gestionnaire d&#x27;identité (<a href="https://www.keycloak.org/">KeyCloak</a>).</p><h4>Namespace</h4><p>Une fois authentifié deux cas de figure:</p><ul><li>votre kubernetes namespace a été configurer par un de vos administrateur ? vous pouvez donc continuez votre utilisation</li><li>votre namespace na pas été créer ? veuillez contacté votre administrateur.</li></ul><h4>Connection</h4><p>La connection préconiser vers le container GUI est une connection de type VNC, le container étant conçu afin de supporter une interface graphique.</p><p>Mais le système Guacamole permet bien plus que du VNC telle que:</p><ul><li>RDP : Remote Desktop Protocol =&gt; Supporté principalement par Windows</li><li>SSH : Secure Shell =&gt; Protocol supporté par pratiquement tout les système.</li><li>Kubernetes =&gt; Accès directe aux container sans nécessité de SSH</li></ul><p>Hors Guacamole viens de base avec son propre Client mais celui ci ne permet pas une gestion automatisé des clients comme souhaité.</p><p>Afin de résoudre ce problème la <a href="https://guacamole.apache.org/doc/gug/guacamole-common-js.html">librairie js guacamole</a> sera implémenter dans PipBoy Front.</p><p>Il peut être envisageable d&#x27;ajouter la possibilité de ce connecter a des appareille hors de kubernetes si cella s&#x27;avère utile dans la suite du développement.</p><h4>Ensuite ?</h4><p>Une fois connecté a une cible l&#x27;utilisateur aura autant de possibilité qu&#x27;un accès avec le client Guacamole:</p><ul><li>Son : Transfert du son en provenance de la cible.</li><li>Multiple connection ? Une fonctionnalité encore en attente d&#x27;approbation.</li><li>Clavier/souris, possibilité d&#x27;envoyé le flux du clavier et de la souris vers la cible.</li><li>Presse papier : Possibilité de partager des fichier avec la cible.</li><li>Transfert de fichier: Permet d&#x27;envoyé ou recevoir des fichier avec la cible.</li><li>Clavier sur l&#x27;écran: Facilite l&#x27;accès a partir d&#x27;une tablette en émulant un clavier sur l&#x27;écran.</li></ul><h2>Plus de fonctionnalité ?</h2><p>Un accès distant et facile a votre environnement c&#x27;est bien et suffisant pour une V1 mais dans notre cas une on ne veux pas s&#x27;arrêter uniquement la.</p><h3>CRUD kubernetes</h3><p>Afin de pouvoir accéder a cette environnement il serais pratique de pouvoir créer des objet dans celui ci. A cette fin l&#x27;ajout d&#x27;un éditeur de Yaml est une possibilité envisagé tres fortement !</p><p>En plus de l&#x27;ajout une visualisation des object présent dans le kubernetes et leur visualisation sera possible.</p><p>Vous souhaitez suivre l&#x27;avancée du projet ? <a href="https://github.com/users/batleforc/projects/1">Venez me rejoindre sur github et pensé a mettre une étoile sur le projet</a></p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[First Blog Post]]></title>
