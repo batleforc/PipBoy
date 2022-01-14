@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdoc=self.webpackChunkdoc||[]).push([[332],{3885:function(o){o.exports=JSON.parse('{"allTagsPath":"/PipBoy/blog/tags","slug":"/PipBoy/blog/tags/docker","name":"docker","count":1,"permalink":"/PipBoy/blog/tags/docker"}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdoc=self.webpackChunkdoc||[]).push([[761],{1947:function(o){o.exports=JSON.parse('{"allTagsPath":"/PipBoy/blog/tags","slug":"/PipBoy/blog/tags/concept","name":"concept","count":1,"permalink":"/PipBoy/blog/tags/concept"}')}}]);
