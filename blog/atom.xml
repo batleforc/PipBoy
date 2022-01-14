@@ -13,17 +13,29 @@
         <link href="https://batleforc.github.io/PipBoy/blog/concept"/>
         <updated>2020-01-14T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[PipBoy ? Kezako ?]]></summary>
-        <content type="html"><![CDATA[<p>PipBoy ? Kezako ?</p><p>Le projet PipBoy a pour objectif de mettre en place un environnement de travail sous kubernetes simplifier.</p><p>Vous êtes encore plus perdue ? Ce n&#x27;est pas grave !</p><p>Si vous avez un peu de connaissance en infrastructure cella peux être comparé a un serveur RDP ou chaque utilisateur aura un l&#x27;équivalent d&#x27;un docker personnelle.</p><p>Pour les autre ?</p><p>Afin de comprendre la suite des explication il est nécessaire de comprendre:</p><ul><li><a href="https://www.youtube.com/watch?v=caXHwYC3tq8">un minimum docker</a> ou <a href="https://www.youtube.com/watch?v=3c-iBn73dDE">beaucoup</a>.</li><li>Kubernetes et plus précisément les pods et namespace (le reste sera nécessaire dans un autre article)</li><li><a href="https://fr.wikipedia.org/wiki/Virtual_Network_Computing">VNC</a></li></ul><pre><code class="language-plantuml" metastring="V1">node kubernetes{
+        <content type="html"><![CDATA[<p>PipBoy ? Kezako ?</p><p>Le projet PipBoy a pour objectif de mettre en place un environnement de travail sous kubernetes simplifier.</p><p>Vous êtes encore plus perdue ? Ce n&#x27;est pas grave !</p><p>Si vous avez un peu de connaissance en infrastructure cella peux être comparé a un serveur RDP ou chaque utilisateur aura un l&#x27;équivalent d&#x27;un docker personnelle.</p><p>Pour les autre ?</p><p>Afin de comprendre la suite des explication il est nécessaire de connaître:</p><ul><li><a href="https://www.youtube.com/watch?v=caXHwYC3tq8">un minimum docker</a> ou <a href="https://www.youtube.com/watch?v=3c-iBn73dDE">beaucoup</a>.</li><li>Kubernetes et plus précisément les pods et namespace (le reste sera nécessaire dans un autre article)</li><li><a href="https://fr.wikipedia.org/wiki/Virtual_Network_Computing">VNC</a></li></ul><p>A noté:</p><ul><li>Environnement == Namespace</li><li>GuiContainer : Container docker avec une interface graphique</li></ul><pre><code class="language-plantuml" metastring="V1">node kubernetes{
   package &quot;PipBoy&quot;{
     node &quot;Guacamole BackEnd&quot; as guacd
     node &quot;PipBoy BackEnd&quot; as pipback
     node &quot;PipBoy FrontEnd&quot; as pipfront
+    node KeyCloak as kc
   }
   package &quot;UserNamespace&quot;{
-    node GuiContainer
+    node GuiContainer as gui
+    node other
   }
 }
-</code></pre>]]></content>
+
+node user
+
+user --&gt; pipfront : Accéde aux information de son namespace
+pipfront --&gt; kc : Authentifie l&#x27;uttilisateur
+pipfront --&gt; pipback : Accéde a kubernetes
+pipfront -[#black]-&gt; pipback : Récupére les information de\nconnection aux container
+pipback -[#black]-&gt; guacd : Demande une connection aux gui
+guacd -[#black]-&gt; gui : Creer une connection entre\nGuiContainer et l&#x27;user
+guacd -[#black]-&gt; other: Creer une connection\nd&#x27;un autre type si besoin
+</code></pre><p>La connection préconiser vers Gui est une connection de type VNC, le container étant conçu afin de supporter une interface graphique.</p><p>Mais le système Guacamole permet bien plus que du VNC telle que:</p><ul><li>RDP : Remote Desktop Protocol =&gt; Supporté principalement par Windows</li><li>SSH : Secure Shell =&gt; Protocol supporté par pratiquement tout</li><li>Kubernetes =&gt; Accès directe aux container sans nécessité de SSH</li></ul><p>Hors Guacamole viens de base avec son propre Client mais celui ci ne permet pas une gestion automatisé des clients comme souhaité.</p><p>Afin de résoudre ce problème la librairie js guacamole sera implémenter dans PipBoy Front.</p>]]></content>
         <author>
             <name>Maxime Leriche</name>
             <uri>https://github.com/batleforc</uri>
