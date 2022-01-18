@@ -12,20 +12,24 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type Retour struct {
+type retourInStatus struct {
 	CanStillWork   bool
 	NamespaceExist bool
 	NamespaceName  string
 	AccountPanel   string
+	Message        string
 }
 
 func GetStatus(c echo.Context) error {
-	externalToken := helper.ParseTokenHeader(c.Request().Header.Get("Authorization"))
-	keyClient := model.Auth{}
+	externalToken := c.Get("Token").(string)
+	keyClient := c.Get("Auth").(model.Auth)
 	rptToken, err := keyClient.GetRetrospectToken(externalToken)
 	if err != nil {
 		fmt.Printf("An error has been encountered, %s", err.Error())
 		return err
+	}
+	if !*rptToken.Active {
+		return c.JSON(http.StatusUnauthorized, retourInStatus{Message: "YOU SOULD NOT PASS"})
 	}
 	kube := model.K8sHandler{}
 	clientSet, err := kube.InitOutCluster().GetClientSet()
@@ -39,5 +43,5 @@ func GetStatus(c echo.Context) error {
 		fmt.Printf("An error has been encountered, %s", err.Error())
 		return err
 	}
-	return c.JSON(http.StatusOK, Retour{CanStillWork: *rptToken.Active, NamespaceExist: namespace != nil, NamespaceName: namespace.GetName(), AccountPanel: fmt.Sprintf("%s/auth/realms/%s/account", keyClient.HostName, keyClient.ClientRealm)})
+	return c.JSON(http.StatusOK, retourInStatus{CanStillWork: *rptToken.Active, NamespaceExist: namespace != nil, NamespaceName: namespace.GetName(), AccountPanel: fmt.Sprintf("%s/auth/realms/%s/account", keyClient.HostName, keyClient.ClientRealm)})
 }
