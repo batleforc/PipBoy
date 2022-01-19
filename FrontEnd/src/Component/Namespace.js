@@ -1,37 +1,36 @@
 import React, { useState } from "react";
 import { AuthenticationContext } from "@axa-fr/react-oidc-context";
 import axios from "axios";
-
 import YouShouldNotPass from "./YouShouldNotPass";
-const Profile = () => {
+
+const Namespace = () => {
   const [data, setData] = useState();
   return (
     <AuthenticationContext.Consumer>
       {(props) => {
         if (props.oidcUser && data === undefined)
           axios
-            .get("http://localhost:3001/api/profile", {
+            .get("http://localhost:3001/api/inNamespace", {
               headers: {
                 Authorization: `Bearer ${props.oidcUser.access_token}`,
               },
             })
             .then((data) => data.data)
             .then((data) => setData(data));
+        console.log(data);
+        if (!data || !props.oidcUser) return <YouShouldNotPass />;
         return (
           <>
-            {props.oidcUser && data !== undefined ? (
-              <div>
-                <p>Namespace Exist : {data.NamespaceExist.toString()}</p>
-                <p>Namespace : {data.NamespaceName}</p>
-                <p>User : {props.oidcUser.profile.name}</p>
-                <p>Username : {props.oidcUser.profile.preferred_username}</p>
-                <a rel="noreferrer" target="_blank" href={data.AccountPanel}>
-                  Account panel
-                </a>
-              </div>
-            ) : (
-              <YouShouldNotPass />
-            )}
+            {Object.entries(data).map((value) => {
+              return (
+                <ul key={value[0]}>
+                  <li>{value[0]}</li>
+                  {value[1].items.map(({ metadata }) => (
+                    <li key={metadata.name}>{metadata.name}</li>
+                  ))}
+                </ul>
+              );
+            })}
           </>
         );
       }}
@@ -39,4 +38,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Namespace;

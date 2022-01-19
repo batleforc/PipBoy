@@ -1,23 +1,24 @@
 import "./App.css";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { AuthenticationProvider, oidcLog } from "@axa-fr/react-oidc-context";
 import OidcConfiguration from "./OidcConfiguration";
 import Home from "./Component/Home";
 import Nav from "./Component/Nav";
 import Profile from "./Component/Profile";
+import Namespace from "./Component/Namespace";
 function App() {
   const Composant = ({ value }) => <h1>{value}</h1>;
   return (
     <div className="App">
       <AuthenticationProvider
         configuration={OidcConfiguration}
-        loggerLevel={oidcLog.DEBUG}
+        loggerLevel={oidcLog.WARN}
       >
         <Nav />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/2" element={<Composant value="2" />} />
+          <Route path="/namespace" element={<Namespace />} />
           <Route path="/3" element={<Composant value="3" />} />
         </Routes>
       </AuthenticationProvider>
