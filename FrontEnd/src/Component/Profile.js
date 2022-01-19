@@ -9,7 +9,7 @@ const Profile = () => {
       {(props) => {
         if (props.oidcUser && data === undefined)
           axios
-            .get("http://localhost:3001", {
+            .get("http://localhost:3001/api/profile", {
               headers: {
                 Authorization: `Bearer ${props.oidcUser.access_token}`,
               },

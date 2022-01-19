@@ -35,7 +35,7 @@ func main() {
 		}
 	})
 
-	e.GET("/", routes.GetStatus)
-	e.GET("/inNamespace", routes.GetInNamespace)
+	e.GET("/api/profile", routes.GetStatus)
+	e.GET("/api/inNamespace", routes.GetInNamespace)
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", helper.GetStringEnv("PORT", "3001"))))
 }
