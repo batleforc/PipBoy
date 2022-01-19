@@ -2,33 +2,54 @@ import React from "react";
 import User from "./User";
 import { Link } from "react-router-dom";
 import { AuthenticationContext } from "@axa-fr/react-oidc-context";
+
+const HyperLink = ({ to, label }) => (
+  <Link style={{ margin: 1 }} to={`${to}`}>
+    {label}
+  </Link>
+);
 const Nav = () => {
+  const lien = [
+    {
+      to: "/",
+      label: "HOME",
+      needAuth: false,
+    },
+    {
+      to: "/profile",
+      label: "Profile",
+      needAuth: true,
+    },
+    {
+      to: "/namespace",
+      label: "Namespace",
+      needAuth: true,
+    },
+    {
+      to: "/3",
+      label: "TROIS",
+      needAuth: false,
+    },
+  ];
   return (
     <nav style={{ display: "flex" }}>
-      <div>
-        <AuthenticationContext.Consumer>
-          {(props) => {
-            return (
-              <>
-                <Link style={{ margin: 1 }} to="/">
-                  HOME
-                </Link>
-                {props.oidcUser && (
-                  <Link style={{ margin: 1 }} to="/profile">
-                    Profile
-                  </Link>
-                )}
-                <Link style={{ margin: 1 }} to="/2">
-                  2
-                </Link>
-                <Link style={{ margin: 1 }} to="/3">
-                  3
-                </Link>
-              </>
-            );
-          }}
-        </AuthenticationContext.Consumer>
-      </div>
+      <AuthenticationContext.Consumer>
+        {(props) => {
+          return (
+            <>
+              {lien.map(({ label, to, needAuth }) => (
+                <div key={label}>
+                  {(needAuth && props.oidcUser) || !needAuth ? (
+                    <HyperLink label={label} to={to} />
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              ))}
+            </>
+          );
+        }}
+      </AuthenticationContext.Consumer>
       <User />
     </nav>
   );
