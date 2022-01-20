@@ -19,3 +19,12 @@ Le projet est baser sur trois namespace kubernetes:
 - Création d'un namespace a la premiere authentification (UserNamespace)
 - Accès aux container a travers Guacamole
 - Accès a GUI-UserNamespace a travers Guacamole
+
+## Guacamole
+
+Start Guacd:
+
+```shell
+docker run --name guacd -d -p 4822:4822 guacamole/guacd
+docker run -p 25901:5901 -p 26901:3000 accetto/ubuntu-vnc-xfce-nodejs-g3:vnc-vscode-chromium
+```
