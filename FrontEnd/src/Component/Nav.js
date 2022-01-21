@@ -30,6 +30,11 @@ const Nav = () => {
       label: "TROIS",
       needAuth: false,
     },
+    {
+      to: "/guac",
+      label: "Guacamole",
+      needAuth: false,
+    },
   ];
   return (
     <nav style={{ display: "flex" }}>
